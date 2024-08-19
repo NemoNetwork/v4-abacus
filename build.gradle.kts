@@ -250,7 +250,7 @@ tasks.register<Copy>("v4WebHotSwapCopy") {
     from("build/dist/js/developmentLibrary")
     into("../v4-web/node_modules/@dydxprotocol/v4-abacus/")
 
-    include("**/*.js", "**/*.map")
+    include("**/*.js", "**/*.map", "**/*.ts")
 }
 
 tasks.register<Exec>("v4WebHotSwapTrigger") {
