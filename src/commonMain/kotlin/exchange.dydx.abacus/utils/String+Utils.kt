@@ -6,7 +6,7 @@ import kotlin.String
 fun String.isAddressValid(): Boolean {
     try {
         val (humanReadablePart, data) = Bech32.decode(this)
-        return humanReadablePart == "dydx"
+        return humanReadablePart == "nemo"
     } catch (e: Exception) {
         return false
     }
@@ -15,7 +15,7 @@ fun String.isAddressValid(): Boolean {
 fun String.toNobleAddress(): String? {
     try {
         val (humanReadablePart, data) = Bech32.decode(this)
-        if (humanReadablePart != "dydx") {
+        if (humanReadablePart != "nemo") {
             return null
         }
         return Bech32.encode("noble", data)
@@ -27,7 +27,7 @@ fun String.toNobleAddress(): String? {
 fun String.toOsmosisAddress(): String? {
     try {
         val (humanReadablePart, data) = Bech32.decode(this)
-        if (humanReadablePart != "dydx") {
+        if (humanReadablePart != "nemo") {
             return null
         }
         return Bech32.encode("osmo", data)
@@ -38,7 +38,7 @@ fun String.toOsmosisAddress(): String? {
 fun String.toNeutronAddress(): String? {
     try {
         val (humanReadablePart, data) = Bech32.decode(this)
-        if (humanReadablePart != "dydx") {
+        if (humanReadablePart != "nemo") {
             return null
         }
         return Bech32.encode("neutron", data)
@@ -53,7 +53,7 @@ fun String.toDydxAddress(): String? {
         if (humanReadablePart != "noble") {
             return null
         }
-        return Bech32.encode("dydx", data)
+        return Bech32.encode("nemo", data)
     } catch (e: Exception) {
         return null
     }
