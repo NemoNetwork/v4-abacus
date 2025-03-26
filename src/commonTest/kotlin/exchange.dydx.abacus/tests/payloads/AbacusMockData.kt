@@ -109,9 +109,9 @@ class AbacusMockData {
         apps = null,
         tokens = mapOf(
             "chain" to TokenInfo(
-                name = "DYDX",
-                denom = "adv4tnt",
-                decimals = 18,
+                name = "NEMO",
+                denom = "unemo",
+                decimals = 6,
                 gasDenom = null,
                 imageUrl = "/currencies/dydx.png",
             ),

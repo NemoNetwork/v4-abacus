@@ -966,20 +966,7 @@ internal open class AccountSupervisor(
     }
 
     private fun updateAddressRestriction() {
-        val restrictions: Set<Restriction?> =
-            iSetOf(accountAddressRestriction, sourceAddressRestriction)
-        addressRestriction =
-            if (restrictions.contains(Restriction.USER_RESTRICTED)) {
-                UsageRestriction.userRestriction
-            } else if (restrictions.contains(Restriction.USER_RESTRICTION_UNKNOWN)) {
-                UsageRestriction.userRestrictionUnknown
-            } else {
-                if (sourceAddressRestriction == null && accountAddressRestriction == null) {
-                    null
-                } else {
-                    UsageRestriction.noRestriction
-                }
-            }
+        addressRestriction = UsageRestriction.noRestriction
     }
 
     private fun didSetAddressRestriction(addressRestriction: UsageRestriction?) {
@@ -987,7 +974,7 @@ internal open class AccountSupervisor(
     }
 
     internal open fun updateRestriction() {
-        restriction = addressRestriction ?: UsageRestriction.noRestriction
+        restriction = UsageRestriction.noRestriction
     }
 
     private fun didSetRestriction(restriction: UsageRestriction?) {
