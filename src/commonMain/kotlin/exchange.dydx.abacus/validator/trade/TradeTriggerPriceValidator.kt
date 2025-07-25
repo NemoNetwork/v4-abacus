@@ -247,14 +247,14 @@ internal class TradeTriggerPriceValidator(
         return when (type) {
             OrderType.StopLimit, OrderType.StopMarket, OrderType.TrailingStop ->
                 when (side) {
-                    OrderSide.Buy -> RelativeToPrice.ABOVE
-                    OrderSide.Sell -> RelativeToPrice.BELOW
+                    OrderSide.Buy -> RelativeToPrice.BELOW
+                    OrderSide.Sell -> RelativeToPrice.ABOVE
                 }
 
             OrderType.TakeProfitLimit, OrderType.TakeProfitMarket ->
                 when (side) {
-                    OrderSide.Buy -> RelativeToPrice.BELOW
-                    OrderSide.Sell -> RelativeToPrice.ABOVE
+                    OrderSide.Buy -> RelativeToPrice.ABOVE
+                    OrderSide.Sell -> RelativeToPrice.BELOW
                 }
 
             else -> null
