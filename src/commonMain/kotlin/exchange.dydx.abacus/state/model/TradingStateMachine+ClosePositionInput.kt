@@ -146,6 +146,9 @@ fun TradingStateMachine.closePosition(
                 if (useLimitClose) {
                     trade["type"] = "LIMIT"
                     trade["timeInForce"] = "GTT"
+                    if (parser.asBool(trade["reduceOnly"]) == true) {
+                        trade["timeInForce"] = "IOC"
+                    }
                     parser.asString(trade["marketId"])?.let {
                         trade.safeSet("price.limitPrice", getMidMarketPrice(it))
                     }

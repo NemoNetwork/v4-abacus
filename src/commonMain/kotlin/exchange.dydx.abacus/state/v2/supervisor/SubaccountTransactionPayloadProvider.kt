@@ -321,6 +321,10 @@ internal class SubaccountTransactionPayloadProvider(
         val marketInfo = marketInfo(marketId)
         val subaccountNumberForPosition = subaccountNumberForPosition(marketId)
 
+        if reduceOnly {
+            timeInForce = "IOC"
+        }
+        
         return HumanReadablePlaceOrderPayload(
             subaccountNumber = subaccountNumberForPosition,
             marketId = marketId,
