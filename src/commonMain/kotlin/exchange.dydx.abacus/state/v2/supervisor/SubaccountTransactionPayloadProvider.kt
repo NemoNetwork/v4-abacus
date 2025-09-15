@@ -321,7 +321,7 @@ internal class SubaccountTransactionPayloadProvider(
         val marketInfo = marketInfo(marketId)
         val subaccountNumberForPosition = subaccountNumberForPosition(marketId)
 
-        if reduceOnly {
+        if reduceOnly == true {
             timeInForce = "IOC"
         }
         
