@@ -84,7 +84,7 @@ internal class ClosePositionInputProcessor(
         }
 
         var sizeChanged = false
-        val trade = inputState.closePosition
+        var trade = inputState.closePosition
         when (type) {
             ClosePositionInputField.market -> {
                 val position = if (data != null) getPosition(data, subaccountNumber, walletState) else null
@@ -150,11 +150,15 @@ internal class ClosePositionInputProcessor(
             }
             ClosePositionInputField.useLimit -> {
                 val useLimitClose =
-                    (parser.asBool(data) ?: false) && StatsigConfig.ff_enable_limit_close
+                    (parser.asBool(data) ?: false)
 
                 if (useLimitClose) {
                     trade.type = OrderType.Limit
                     trade.timeInForce = "GTT"
+
+                    if (trade.reduceOnly == true) {
+                        trade.timeInForce = "IOC"
+                    }
 
                     trade.marketId?.let { marketId ->
                         val limitPrice = getMidMarketPrice(marketSummaryState, marketId)

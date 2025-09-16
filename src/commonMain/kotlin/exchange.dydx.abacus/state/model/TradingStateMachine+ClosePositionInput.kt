@@ -65,7 +65,7 @@ fun TradingStateMachine.closePosition(
 
         val input = this.input?.mutable() ?: mutableMapOf()
         input["current"] = "closePosition"
-        val trade =
+        var trade =
             parser.asMap(input["closePosition"])?.mutable() ?: initiateClosePosition(
                 null,
                 subaccountNumber,
@@ -140,12 +140,15 @@ fun TradingStateMachine.closePosition(
                 )
             }
             ClosePositionInputField.useLimit.rawValue -> {
-                val useLimitClose = (parser.asBool(data) ?: false) && StatsigConfig.ff_enable_limit_close
+                val useLimitClose = (parser.asBool(data) ?: false)
                 trade.safeSet(typeText, useLimitClose)
 
                 if (useLimitClose) {
                     trade["type"] = "LIMIT"
                     trade["timeInForce"] = "GTT"
+                    if (parser.asBool(trade["reduceOnly"]) == true) {
+                        trade["timeInForce"] = "IOC"
+                    }
                     parser.asString(trade["marketId"])?.let {
                         trade.safeSet("price.limitPrice", getMidMarketPrice(it))
                     }

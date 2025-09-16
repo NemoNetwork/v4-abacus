@@ -311,7 +311,7 @@ internal class SubaccountTransactionPayloadProvider(
         val price = summary.payloadPrice ?: throw Exception("price is null")
         val size = summary.size ?: throw Exception("size is null")
         val sizeInput = null
-        val timeInForce = if (isLimitClose) "GTT" else "IOC"
+        var timeInForce = if (isLimitClose) "GTT" else "IOC"
         val execution = "DEFAULT"
         val reduceOnly = true
         val postOnly = false
@@ -321,6 +321,10 @@ internal class SubaccountTransactionPayloadProvider(
         val marketInfo = marketInfo(marketId)
         val subaccountNumberForPosition = subaccountNumberForPosition(marketId)
 
+        if (reduceOnly) {
+            timeInForce = "IOC"
+        }
+        
         return HumanReadablePlaceOrderPayload(
             subaccountNumber = subaccountNumberForPosition,
             marketId = marketId,
