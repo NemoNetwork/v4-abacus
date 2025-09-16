@@ -65,7 +65,7 @@ fun TradingStateMachine.closePosition(
 
         val input = this.input?.mutable() ?: mutableMapOf()
         input["current"] = "closePosition"
-        val trade =
+        var trade =
             parser.asMap(input["closePosition"])?.mutable() ?: initiateClosePosition(
                 null,
                 subaccountNumber,

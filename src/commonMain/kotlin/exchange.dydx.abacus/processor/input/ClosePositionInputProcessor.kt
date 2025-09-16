@@ -84,7 +84,7 @@ internal class ClosePositionInputProcessor(
         }
 
         var sizeChanged = false
-        val trade = inputState.closePosition
+        var trade = inputState.closePosition
         when (type) {
             ClosePositionInputField.market -> {
                 val position = if (data != null) getPosition(data, subaccountNumber, walletState) else null
